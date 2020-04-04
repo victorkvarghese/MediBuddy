@@ -36,35 +36,35 @@ function Tabs() {
           name="MyAppointments"
           component={MyAppointments}
           options={{
-            tabBarIcon: 'home-account',
+            tabBarIcon: 'calendar-clock',
           }}
         />
         <Tab.Screen
           name="Departments"
           component={Departments}
           options={{
-            tabBarIcon: 'bell-outline',
+            tabBarIcon: 'layers',
           }}
         />
         <Tab.Screen
           name="Patients"
           component={Patients}
           options={{
-            tabBarIcon: 'message-text-outline',
+            tabBarIcon: 'account-multiple',
           }}
         />
         <Tab.Screen
           name="Reports"
           component={Reports}
           options={{
-            tabBarIcon: 'home-account',
+            tabBarIcon: 'book-open',
           }}
         />
       </Tab.Navigator>
       <Portal>
         <FAB
           visible={isFocused} // show FAB only when this screen is focused
-          icon="feather"
+          icon="plus-circle"
           label={isTablet ? 'Create new' : null}
           style={[
             styles.fab,

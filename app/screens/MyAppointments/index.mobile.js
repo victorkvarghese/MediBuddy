@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, SafeAreaView, SectionList } from 'react-native';
 import {
   Avatar,
@@ -16,69 +16,8 @@ import { useNavigation } from '@react-navigation/native';
 import { random_rgba } from 'app/utils/random_rgba';
 import { random_sex } from 'app/utils/random_sex';
 
+import { DATA } from './fake_data';
 import styles from './styles';
-
-const DATA = [
-  {
-    title: 'Today, March 4',
-    data: [
-      {
-        id: 1,
-        name: 'Douglas Schneider',
-        sex: 'M',
-        startTime: '10:30 AM',
-        endTime: '10:30 AM',
-        tags: ['Office visit', 'Urgent'],
-      },
-      {
-        id: 3,
-        name: 'Rhoda Underwood',
-        sex: 'F',
-        startTime: '11:00 AM',
-        endTime: '12:00 AM',
-        tags: ['Video Consultation'],
-      },
-    ],
-  },
-  {
-    title: 'March 5',
-    data: [
-      {
-        id: 4,
-        name: 'Jeremey Mclaughlin',
-        sex: 'M',
-        startTime: '9:00 AM',
-        endTime: '10:00 AM',
-        tags: ['Home visit', 'Follow-up'],
-      },
-      {
-        id: 5,
-        name: 'Barbara Wade',
-        sex: 'F',
-        startTime: '11:00 AM',
-        endTime: '13:00 AM',
-        tags: ['Office-visit', 'Check-up'],
-      },
-
-      {
-        id: 6,
-        name: 'Douglas Schneider',
-        sex: 'M',
-        startTime: '10:30 AM',
-        endTime: '10:30 AM',
-        tags: ['Office visit', 'Urgent'],
-      },
-      {
-        id: 7,
-        name: 'Rhoda Underwood',
-        sex: 'F',
-        startTime: '11:00 AM',
-        endTime: '12:00 AM',
-        tags: ['Video Consultation'],
-      },
-    ],
-  },
-];
 
 const Item = ({ item }) => {
   const { name, startTime, endTime, tags, sex } = item;
@@ -145,6 +84,7 @@ const Item = ({ item }) => {
 };
 
 export default function MyAppointments() {
+  const [selectedIndex, setSelectedIndex] = useState(0);
   return (
     <SafeAreaView style={styles.container}>
       <SectionList
