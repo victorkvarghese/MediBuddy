@@ -65,7 +65,7 @@ function Tabs() {
         <FAB
           visible={isFocused} // show FAB only when this screen is focused
           icon="feather"
-          label={isTablet ? 'Test' : null}
+          label={isTablet ? 'Create new' : null}
           style={[
             styles.fab,
             {

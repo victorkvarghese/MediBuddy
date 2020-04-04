@@ -12,9 +12,15 @@ export default function Appointments({ navigation }) {
   const onClick = () => navigation.navigate('AppointmentDetail');
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
-      <MyAppointments />
-      <AppointmentDetail />
-      <Calendar />
+      <View style={{ flex: 1 }}>
+        <MyAppointments />
+      </View>
+      <View style={{ flex: 1 }}>
+        <AppointmentDetail />
+      </View>
+      <View style={{ flex: 2 }}>
+        <Calendar />
+      </View>
     </View>
   );
 }

@@ -11,11 +11,11 @@ import Tabs from './Tabs';
 const Stack = createStackNavigator();
 
 function App() {
-  const stackProps = DeviceInfo.isTablet() ? { headerMode: 'none' } : {};
+  // const stackProps = DeviceInfo.isTablet() ? { headerMode: 'none' } : {};
 
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator {...stackProps}>
+      <Stack.Navigator headerMode="none">
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Tabs} />
         <Stack.Screen name="AppointmentDetail" component={AppointmentDetail} />
