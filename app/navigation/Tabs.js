@@ -13,6 +13,8 @@ import Departments from 'app/screens/Departments';
 import Patients from 'app/screens/Patients';
 import Reports from 'app/screens/Reports';
 
+import TabBar from 'app/components/tab-bar';
+
 const isTablet = DeviceInfo.isTablet();
 const Tab = isTablet
   ? createMaterialTopTabNavigator()
@@ -21,6 +23,13 @@ const Tab = isTablet
 function Tabs() {
   const isFocused = useIsFocused();
   const safeArea = useSafeArea();
+  let tabBarProps = {};
+
+  if (isTablet) {
+    tabBarProps = {
+      tabBar: props => <TabBar {...props} />,
+    };
+  }
 
   return (
     <React.Fragment>
@@ -31,9 +40,10 @@ function Tabs() {
         sceneAnimationEnabled={false}
         activeColor="#00aea2"
         inactiveColor="#95a5a6"
-        barStyle={{ backgroundColor: '#ffff' }}>
+        barStyle={{ backgroundColor: '#ffff' }}
+        {...tabBarProps}>
         <Tab.Screen
-          name="MyAppointments"
+          name="Appointments"
           component={MyAppointments}
           options={{
             tabBarIcon: 'calendar-clock',
@@ -69,7 +79,7 @@ function Tabs() {
           style={[
             styles.fab,
             {
-              bottom: safeArea.bottom + 65,
+              bottom: safeArea.bottom + 48,
             },
           ]}
         />
