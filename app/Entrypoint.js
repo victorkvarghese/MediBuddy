@@ -19,7 +19,7 @@ const theme = {
     ...DefaultTheme.colors,
     primary: '#2c3e50',
     accent: '#00aea2',
-    backgrounnd: '#f0f6f9',
+    background: '#f0f6f9',
     text: '#34495e',
   },
 };

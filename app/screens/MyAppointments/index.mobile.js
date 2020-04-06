@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, SafeAreaView, SectionList } from 'react-native';
 import {
   Avatar,
@@ -11,28 +11,24 @@ import {
   Text,
 } from 'react-native-paper';
 
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import DeviceInfo from 'react-native-device-info';
 
 import { random_rgba } from 'app/utils/random_rgba';
-import { random_sex } from 'app/utils/random_sex';
-
-import { DATA } from './fake_data';
 import styles from './styles';
 
+import * as appointmentActions from 'app/actions/appointmentActions';
+
 const Item = ({ item }) => {
-  const { name, startTime, endTime, tags, sex } = item;
-
-  /**
-   * Condtional based on tab or mobile
-   */
+  const { id, name, startTime, endTime, tags, avatar } = item;
   const navigation = useNavigation();
-  const onNavigate = () => navigation.navigate('AppointmentDetail');
-
+  const isTablet = DeviceInfo.isTablet();
   const LeftContent = props => (
     <Avatar.Image
       {...props}
       source={{
-        uri: random_sex(sex),
+        uri: avatar,
       }}
     />
   );
@@ -41,10 +37,18 @@ const Item = ({ item }) => {
       icon="arrow-right"
       color="#0097e8"
       size={20}
-      onPress={onNavigate}
+      onPress={onSelected}
       style={{ marginBottom: 24 }}
     />
   );
+
+  const dispatch = useDispatch();
+  const onSelected = () => {
+    dispatch(appointmentActions.appointmentSelected(id));
+    if (!isTablet) {
+      navigation.navigate('AppointmentDetail');
+    }
+  };
 
   return (
     <Card style={styles.card}>
@@ -84,16 +88,19 @@ const Item = ({ item }) => {
 };
 
 export default function MyAppointments() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const appointments = useSelector(
+    state => state.appointmentReducer.appointments,
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <SectionList
         style={styles.list}
-        sections={DATA}
+        sections={appointments}
         renderItem={({ item }) => <Item item={item} />}
         renderSectionHeader={({ section: { title } }) => <Title>{title}</Title>}
         ListHeaderComponent={() => (
-          <Headline style={{ marginVertical: 8 }}>My Appointments</Headline>
+          <Headline style={{ marginVertical: 12 }}>My Appointments</Headline>
         )}
         stickySectionHeadersEnabled={false}
         showsVerticalScrollIndicator={false}

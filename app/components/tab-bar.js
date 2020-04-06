@@ -1,12 +1,19 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, View } from 'react-native';
 import Animated from 'react-native-reanimated';
-import { Avatar, Text, Title } from 'react-native-paper';
+import { Avatar, Text, IconButton, Menu, Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
 import { withTheme } from 'react-native-paper';
 
 import GeneralStatusBar from './status-bar';
+
+const width = 120;
+const CustomIcon = ({ name, onPress }) => {
+  return (
+    <IconButton icon={name} color="#bdc3c7" size={28} onPress={() => {}} />
+  );
+};
+
 function TabBar({
   state,
   descriptors,
@@ -15,40 +22,25 @@ function TabBar({
   position,
   theme,
 }) {
-  const width = 120;
+  const { colors } = theme;
+  const [visible, setvisible] = React.useState(false);
   /** Indicator transition */
   const indicatorTranslateX = Animated.interpolate(position, {
     inputRange: [0, 1, 2, 3],
     outputRange: [110, 2 * width + 24, 3 * width + 48, 4 * width + 48],
   });
-
   const indicatorWidth = Animated.interpolate(position, {
     inputRange: [0, 1, 2, 3],
     outputRange: [140, 140, 100, 100],
   });
 
-  const { colors } = theme;
-
-  const CustomIcon = ({ name, onPress }) => {
-    return (
-      <TouchableOpacity style={{ marginHorizontal: 12 }} onPress={onPress}>
-        <Icon name={name} size={28} color="#bdc3c7" />
-      </TouchableOpacity>
-    );
-  };
-
   return (
     <View>
       <GeneralStatusBar backgroundColor="#ffff" />
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          alignItems: 'center',
-        }}>
+      <View style={styles.tabView}>
         <Avatar.Image
           size={50}
-          style={{ marginHorizontal: 24 }}
+          style={styles.icon}
           source={{
             uri: 'https://i.ya-webdesign.com/images/male-avatar-icon-png-7.png',
           }}
@@ -78,15 +70,7 @@ function TabBar({
           };
 
           return (
-            <TouchableOpacity
-              key={index}
-              style={{
-                height: 70,
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingHorizontal: 24,
-              }}
-              onPress={onPress}>
+            <TouchableOpacity key={index} style={styles.tab} onPress={onPress}>
               <Text
                 style={{
                   fontSize: 16,
@@ -100,25 +84,38 @@ function TabBar({
           );
         })}
 
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row-reverse',
-            alignItems: 'center',
-            marginHorizontal: 24,
-          }}>
-          <Text style={{ fontSize: 16 }}>Dr. Christian Wade</Text>
+        <View style={styles.sideMenu}>
+          <Menu
+            visible={visible}
+            onDismiss={() => setvisible(false)}
+            anchor={
+              <TouchableOpacity onPress={() => setvisible(true)}>
+                <View
+                  style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                  <Text style={{ fontSize: 16 }}>Dr. Christian Wade</Text>
+                  <Icon name="keyboard-arrow-down" size={24} color="#bdc3c7" />
+                </View>
+              </TouchableOpacity>
+            }>
+            <Menu.Item onPress={() => {}} title="Request Leave" />
+            <Menu.Item onPress={() => {}} title="Provide Feeback" />
+
+            <Divider />
+            <Menu.Item onPress={() => {}} title="Check for Updates" />
+            <Menu.Item onPress={() => {}} title="Logout " />
+          </Menu>
+
           <Avatar.Image
             size={50}
-            style={{ marginHorizontal: 16, marginLeft: 36 }}
+            style={styles.avatar}
             source={{
               uri:
                 'https://i.ya-webdesign.com/images/male-avatar-icon-png-7.png',
             }}
           />
-          <CustomIcon name="notifications" />
+          <CustomIcon name="bell" />
           <CustomIcon name="settings" />
-          <CustomIcon name="search" />
+          <CustomIcon name="magnify" />
         </View>
       </View>
       <Animated.View
@@ -142,6 +139,28 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
   },
+  tabView: {
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#bdc3c7',
+  },
+  tab: {
+    height: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 24,
+  },
+
+  sideMenu: {
+    flex: 1,
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    marginHorizontal: 24,
+  },
+  avatar: { marginHorizontal: 16, marginLeft: 36 },
+  icon: { marginHorizontal: 24 },
 });
 
 export default withTheme(TabBar);
