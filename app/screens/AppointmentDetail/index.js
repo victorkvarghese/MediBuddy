@@ -5,6 +5,7 @@ import { withTheme } from 'react-native-paper';
 
 import AppointmentInfo from './components/appointmentInfo';
 import styles from './styles';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 function AppointmentDetail({ theme }) {
   const selectedID = useSelector(state => state.appointmentReducer.selectedID);
@@ -16,13 +17,13 @@ function AppointmentDetail({ theme }) {
   const appointment = appointments.find(itx => itx.id === selectedID);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {selectedID !== -1 && (
         <View style={{ marginHorizontal: 10 }}>
           <AppointmentInfo theme={theme} appointment={appointment} />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 

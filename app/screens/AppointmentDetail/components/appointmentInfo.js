@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     margin: 8,
-    marginTop: 24,
   },
   section: { flexDirection: 'row', alignItems: 'center' },
   name: { fontSize: 16 },

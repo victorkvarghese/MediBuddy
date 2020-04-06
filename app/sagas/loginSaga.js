@@ -24,7 +24,7 @@ export default function* loginAsync() {
   if (response.success) {
     yield put(loginActions.onLoginResponse(response.data));
     yield put(loginActions.disableLoader({}));
-    yield call(navigationActions.navigateToHome);
+    yield call(navigationActions.resetToHome);
   } else {
     yield put(loginActions.loginFailed());
     yield put(loginActions.disableLoader({}));

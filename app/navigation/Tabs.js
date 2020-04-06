@@ -74,12 +74,12 @@ function Tabs() {
       <Portal>
         <FAB
           visible={isFocused} // show FAB only when this screen is focused
-          icon="plus-circle"
+          icon="plus-box"
           label={isTablet ? 'Create new' : null}
           style={[
             styles.fab,
             {
-              bottom: safeArea.bottom + 48,
+              bottom: safeArea.bottom + 65,
             },
           ]}
         />
