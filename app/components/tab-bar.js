@@ -27,12 +27,51 @@ function TabBar({
   /** Indicator transition */
   const indicatorTranslateX = Animated.interpolate(position, {
     inputRange: [0, 1, 2, 3],
-    outputRange: [110, 2 * width + 24, 3 * width + 48, 4 * width + 48],
+    outputRange: [110, 2 * width + 24, 3 * width + 24, 4 * width + 48],
   });
   const indicatorWidth = Animated.interpolate(position, {
     inputRange: [0, 1, 2, 3],
-    outputRange: [140, 140, 100, 100],
+    outputRange: [140, 100, 140, 100],
   });
+
+  const TabIcon = ({ route, index }) => {
+    const { options } = descriptors[route.key];
+    const label =
+      options.tabBarLabel !== undefined
+        ? options.tabBarLabel
+        : options.title !== undefined
+        ? options.title
+        : route.name;
+
+    const isFocused = state.index === index;
+
+    const onPress = () => {
+      const event = navigation.emit({
+        type: 'tabPress',
+        target: route.key,
+        canPreventDefault: true,
+      });
+
+      if (!isFocused && !event.defaultPrevented) {
+        navigation.navigate(route.name);
+      }
+    };
+
+    return (
+      <TouchableOpacity key={index} style={styles.tab} onPress={onPress}>
+        <Text
+          style={
+            (styles.tabTxt,
+            {
+              color:
+                index === navigationState.index ? colors.accent : '#bdc3c7',
+            })
+          }>
+          {label}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View>
@@ -47,41 +86,7 @@ function TabBar({
         />
 
         {state.routes.map((route, index) => {
-          const { options } = descriptors[route.key];
-          const label =
-            options.tabBarLabel !== undefined
-              ? options.tabBarLabel
-              : options.title !== undefined
-              ? options.title
-              : route.name;
-
-          const isFocused = state.index === index;
-
-          const onPress = () => {
-            const event = navigation.emit({
-              type: 'tabPress',
-              target: route.key,
-              canPreventDefault: true,
-            });
-
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name);
-            }
-          };
-
-          return (
-            <TouchableOpacity key={index} style={styles.tab} onPress={onPress}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  color:
-                    index === navigationState.index ? colors.accent : '#bdc3c7',
-                }}>
-                {label}
-              </Text>
-            </TouchableOpacity>
-          );
+          return <TabIcon route={route} index={index} />;
         })}
 
         <View style={styles.sideMenu}>
@@ -90,9 +95,8 @@ function TabBar({
             onDismiss={() => setvisible(false)}
             anchor={
               <TouchableOpacity onPress={() => setvisible(true)}>
-                <View
-                  style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                  <Text style={{ fontSize: 16 }}>Dr. Christian Wade</Text>
+                <View style={styles.dropView}>
+                  <Text style={styles.name}>Dr. Christian Wade</Text>
                   <Icon name="keyboard-arrow-down" size={24} color="#bdc3c7" />
                 </View>
               </TouchableOpacity>
@@ -134,7 +138,7 @@ function TabBar({
 
 const styles = StyleSheet.create({
   indicator: {
-    height: 2,
+    height: 3,
     elevation: 2,
     position: 'absolute',
     bottom: 0,
@@ -161,6 +165,9 @@ const styles = StyleSheet.create({
   },
   avatar: { marginHorizontal: 16, marginLeft: 36 },
   icon: { marginHorizontal: 24 },
+  tabTxt: { fontSize: 16, fontWeight: 'bold' },
+  dropView: { flexDirection: 'row', justifyContent: 'center' },
+  name: { fontSize: 16 },
 });
 
 export default withTheme(TabBar);

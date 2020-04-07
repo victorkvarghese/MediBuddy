@@ -1,19 +1,13 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import {
-  Avatar,
-  Button,
-  Card,
-  Divider,
-  IconButton,
-  Text,
-} from 'react-native-paper';
+import { Button, Card, Divider, Text } from 'react-native-paper';
 
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
 
 import { random_rgba } from 'app/utils/random_rgba';
+import ProfileCard from 'app/components/profile-card';
 
 import * as appointmentActions from 'app/actions/appointmentActions';
 
@@ -21,23 +15,6 @@ const Item = ({ item }) => {
   const { id, name, startTime, endTime, tags, avatar } = item;
   const navigation = useNavigation();
   const isTablet = DeviceInfo.isTablet();
-  const LeftContent = props => (
-    <Avatar.Image
-      {...props}
-      source={{
-        uri: avatar,
-      }}
-    />
-  );
-  const RightContent = props => (
-    <IconButton
-      icon="arrow-right"
-      color="#0097e8"
-      size={20}
-      onPress={onSelected}
-      style={{ marginBottom: 24 }}
-    />
-  );
 
   const dispatch = useDispatch();
   const onSelected = () => {
@@ -49,14 +26,7 @@ const Item = ({ item }) => {
 
   return (
     <Card style={styles.card}>
-      <Card.Title
-        title={name}
-        subtitle="View profile"
-        left={LeftContent}
-        right={RightContent}
-        titleStyle={styles.cardTitle}
-        subtitleStyle={styles.cardSub}
-      />
+      <ProfileCard name={name} avatar={avatar} onSelected={onSelected} />
       <Card.Content>
         <Divider />
         <Text style={styles.duration}>

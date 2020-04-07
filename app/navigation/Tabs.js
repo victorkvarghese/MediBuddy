@@ -49,18 +49,19 @@ function Tabs() {
             tabBarIcon: 'calendar-clock',
           }}
         />
-        <Tab.Screen
-          name="Departments"
-          component={Departments}
-          options={{
-            tabBarIcon: 'layers',
-          }}
-        />
+
         <Tab.Screen
           name="Patients"
           component={Patients}
           options={{
             tabBarIcon: 'account-multiple',
+          }}
+        />
+        <Tab.Screen
+          name="Departments"
+          component={Departments}
+          options={{
+            tabBarIcon: 'layers',
           }}
         />
         <Tab.Screen

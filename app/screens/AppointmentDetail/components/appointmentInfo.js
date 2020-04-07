@@ -1,20 +1,17 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text, IconButton, withTheme } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Text, withTheme } from 'react-native-paper';
+import DeviceInfo from 'react-native-device-info';
 
-const Section = ({ icon, name, color }) => (
-  <View style={styles.section}>
-    <IconButton icon={icon} color={color} size={22} onPress={() => {}} />
-    <Text style={styles.name}>{name}</Text>
-  </View>
-);
+import Section from 'app/components/section-item';
 
 function AppointmentInfo({ theme, appointment }) {
   const { colors } = theme;
 
+  const isTablet = DeviceInfo.isTablet();
   return (
-    <React.Fragment>
-      <Text style={styles.title}>Appointment Information</Text>
+    <View style={{ marginTop: 24 }}>
+      {isTablet && <Text style={styles.title}>Appointment Information</Text>}
       <Section
         name={appointment?.date}
         icon="calendar-blank-outline"
@@ -30,7 +27,7 @@ function AppointmentInfo({ theme, appointment }) {
         icon="plus-box"
         color={colors.accent}
       />
-    </React.Fragment>
+    </View>
   );
 }
 
@@ -38,7 +35,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    margin: 8,
+    marginVertical: 8,
   },
   section: { flexDirection: 'row', alignItems: 'center' },
   name: { fontSize: 16 },
