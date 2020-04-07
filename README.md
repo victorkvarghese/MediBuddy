@@ -3,10 +3,13 @@ UI insipired from [Medical App Dashboard by UGEM Team](https://www.google.com)
 
 ![alt text](https://cdn.dribbble.com/users/865742/screenshots/8552051/media/10ef0387f90c48aa18e679b34d1d3e7b.png)
 
+
 ## WIP DEMO - IN PROGRESS
 ![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/15869386/78696890-aa83d380-791d-11ea-8515-c658dd733f67.gif)
 
-
+## Built using
+<a href='https://callstack.github.io/react-native-paper/'><img src='https://raw.githubusercontent.com/callstack/react-native-paper/master/docs/assets/images/paper-logo.svg?sanitize=true' height='110' alt='Redux Logo' aria-label='https://callstack.github.io/react-native-paper/' /></a>
+</p>
 
 ## Prerequisites
 
